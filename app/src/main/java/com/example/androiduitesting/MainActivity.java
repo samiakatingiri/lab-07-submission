@@ -2,6 +2,7 @@ package com.example.androiduitesting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -13,7 +14,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    // Declare the variables so that you will be able to reference it later.
     ListView cityList;
     EditText newName;
     LinearLayout nameField;
@@ -63,6 +63,18 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 cityAdapter.clear();
             }
+        });
+
+        setupListViewClickListener();
+
+    }
+    private void setupListViewClickListener(){
+        //ListView cityList = findViewById(R.id.city_list);
+        cityList.setOnItemClickListener((parent, view, position, id)->{
+            String selectedCity = (String) parent.getItemAtPosition(position);
+            Intent intent = new Intent(MainActivity.this, ShowActivity.class);
+            intent.putExtra("CITY_NAME", selectedCity);
+            startActivity(intent);
         });
     }
 }
